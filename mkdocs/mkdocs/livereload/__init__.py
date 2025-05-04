@@ -150,6 +150,8 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
         def callback(event):
             if event.is_directory:
                 return
+            if event.src_path.endswith(".DS_Store"):
+                return
             log.debug(str(event))
             with self._rebuild_cond:
                 self._want_rebuild = True
